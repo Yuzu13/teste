@@ -2,65 +2,110 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Declaração Romântica</title>
+  <title>Surpresa Romântica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      text-align: center;
-      background-color: #fff0f5;
-      font-family: 'Arial', sans-serif;
-      padding-top: 100px;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      font-family: 'Dancing Script', cursive;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     button {
-      padding: 15px 30px;
-      font-size: 20px;
+      padding: 15px 40px;
+      font-size: 24px;
       background-color: #ff69b4;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      z-index: 2;
     }
 
     button:hover {
       background-color: #ff1493;
+      transform: scale(1.05);
     }
 
     #mensagem {
       display: none;
-      margin-top: 50px;
-      font-size: 50px;
-      color: #ff1493;
+      font-family: 'Dancing Script', cursive;
+      font-size: 80px;
+      margin-top: 40px;
+      text-align: center;
       animation: aparecer 1s ease-in-out forwards;
-    }
-
-    .coracoes {
-      font-size: 30px;
-      color: red;
-      margin-top: 20px;
+      background: linear-gradient(to right, #ff69b4, #ff1493, #ff69b4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.4);
+      z-index: 2;
     }
 
     @keyframes aparecer {
-      from { opacity: 0; transform: scale(0.5); }
-      to { opacity: 1; transform: scale(1); }
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 25px;
+      animation: cair linear infinite;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes cair {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
   <button onclick="mostrarMensagem()">Clique</button>
-
-  <div id="mensagem">
-    EU TE AMO 💖💖💖
-    <div class="coracoes">
-      ❤️💗💓💞💕❣️💘💝💖💟💌
-    </div>
-  </div>
+  <div id="mensagem">EU TE AMO 💖</div>
 
   <script>
     function mostrarMensagem() {
-      document.getElementById("mensagem").style.display = "block";
+      const mensagem = document.getElementById("mensagem");
+      mensagem.style.display = "block";
     }
+
+    // Criar corações continuamente
+    setInterval(() => {
+      const coracao = document.createElement("div");
+      coracao.classList.add("heart");
+      coracao.style.left = Math.random() * 100 + "vw";
+      coracao.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      coracao.innerText = "❤️";
+      document.body.appendChild(coracao);
+
+      setTimeout(() => {
+        coracao.remove();
+      }, 5000);
+    }, 300);
   </script>
 
 </body>
